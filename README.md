@@ -1,7 +1,7 @@
 # arduinobtcontroller
 
 A new Flutter application.
-
+HC05 bluetooth modül joystick controller.
 ## Getting Started
 
 This project is a starting point for a Flutter application.

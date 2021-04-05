@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
+
 class WriteDerece {
-  WriteDerece.writeData({int data, Function mesajGonder}) {
+  WriteDerece.writeData({@required int data, @required Function mesajGonder}) {
     var derece = data;
     var sDerece = derece / 10;
     if (sDerece > 0) {
       if (sDerece <= 9) {
-        // ignore: prefer_single_quotes
-        dataZamanlaYolla("N").listen((event) {
+        dataZamanlaYolla('N').listen((event) {
           mesajGonder(event.toString());
           print('stream çalıştı');
         });

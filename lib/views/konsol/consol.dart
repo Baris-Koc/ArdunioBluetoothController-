@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:arduinobtcontroller/controllers/bluetooth_controllers/joystick_controller/left_joystick_write_data.dart';
+import 'package:arduinobtcontroller/controllers/joystick_controller.dart/joystick_callback.dart';
+import 'package:arduinobtcontroller/controllers/joystick_controller.dart/left_joystick_write_data.dart';
+import 'package:arduinobtcontroller/controllers/joystick_controller.dart/right_joystick_write_data.dart';
+import 'package:arduinobtcontroller/models/message.dart';
 import 'package:arduinobtcontroller/widgets/textField_gonder_button.dart';
 
 import 'package:control_pad/control_pad.dart';
@@ -25,18 +28,11 @@ class IslemSayfasi extends StatefulWidget {
   _ChatPage createState() => _ChatPage();
 }
 
-class _Message {
-  int whom;
-  String text;
-
-  _Message(this.whom, this.text);
-}
-
 class _ChatPage extends State<IslemSayfasi> {
   static final clientID = 0;
   BluetoothConnection connection;
 
-  List<_Message> messages = [];
+  List<Message> messages = [];
   String _messageBuffer = '';
 
   final TextEditingController textEditingController = TextEditingController();
@@ -141,7 +137,7 @@ class _ChatPage extends State<IslemSayfasi> {
     PadButtonPressedCallback padButtonPressedCallback(
         int buttonIndex, Gestures gesture) {
       print('buttonIndex: $buttonIndex');
-      _mesajGonder(buttonIndex.toString());
+      WriteButtonIndex.writeData(data: buttonIndex, mesajGonder: _mesajGonder);
     }
 
     return Scaffold(
@@ -207,7 +203,9 @@ class _ChatPage extends State<IslemSayfasi> {
           ),
           Expanded(
             child: ButtonJoystick(
-              padButtonPressedCallback: padButtonPressedCallback,
+              padButtonPressedCallback:
+                  JoystickPadCallBack(mesajGonder: _mesajGonder)
+                      .padButtonPressedCallback,
             ),
           ),
         ],
@@ -246,7 +244,7 @@ class _ChatPage extends State<IslemSayfasi> {
     if (~index != 0) {
       setState(() {
         messages.add(
-          _Message(
+          Message(
             1,
             backspacesCounter > 0
                 ? _messageBuffer.substring(
@@ -274,7 +272,7 @@ class _ChatPage extends State<IslemSayfasi> {
         await connection.output.allSent;
 
         setState(() {
-          messages.add(_Message(clientID, text));
+          messages.add(Message(clientID, text));
         });
 
         await Future.delayed(Duration(milliseconds: 333)).then((_) {

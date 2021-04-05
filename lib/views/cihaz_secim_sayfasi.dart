@@ -1,7 +1,9 @@
 import 'package:arduinobtcontroller/controllers/bluetooth_controllers/ba%C4%9Flant%C4%B1.dart';
-import 'package:arduinobtcontroller/views/konsol/consol.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
+import '../widgets/bt_settings_float.dart';
+import 'konsol/consol.dart';
 
 class CihazSecimSayfasi extends StatelessWidget {
   final String _appBarTitle = 'Bluetooth Cihazı Seçiniz';
@@ -9,8 +11,10 @@ class CihazSecimSayfasi extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: BtSettingsFloatAxtionButton(),
         appBar: AppBar(
           title: Text(_appBarTitle),
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.refresh))],
         ),
         body: Container(child:
             //Bağlantıların listelendiği Sınıf

@@ -1,4 +1,3 @@
-import 'package:arduinobtcontroller/controllers/joystick_controller.dart/right_joystick_write_data.dart';
 import 'package:control_pad/control_pad.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:control_pad/models/gestures.dart';

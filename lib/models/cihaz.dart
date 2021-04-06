@@ -1,6 +1,7 @@
-import 'package:arduinobtcontroller/constants/baglan_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
+import '../constants/baglan_text.dart';
 //Bluethot cihazlarının sıralanırken nasıl bir görüntüde olduğunu gösteren widget
 
 class BluetoothCihazListesiGirisi extends StatelessWidget {

@@ -1,7 +1,7 @@
-import 'package:arduinobtcontroller/controllers/bluetooth_controllers/ba%C4%9Flant%C4%B1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
+import '../controllers/bluetooth_controllers/ba%C4%9Flant%C4%B1.dart';
 import '../widgets/bt_settings_float.dart';
 import 'konsol/consol.dart';
 
@@ -27,7 +27,7 @@ class CihazSecimSayfasi extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   //Bağlan butununa basınca ChatPage sayfasını bağlı cihaz bilgileri ile gidiyo.
-                  return IslemSayfasi(server: device);
+                  return Consol(server: device);
                 },
               ),
             );

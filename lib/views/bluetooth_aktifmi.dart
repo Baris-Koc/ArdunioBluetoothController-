@@ -1,7 +1,7 @@
-import 'package:arduinobtcontroller/constants/bluetooth_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
+import '../constants/bluetooth_icon.dart';
 import 'cihaz_secim_sayfasi.dart';
 
 class BtAktiflerstir extends StatelessWidget {

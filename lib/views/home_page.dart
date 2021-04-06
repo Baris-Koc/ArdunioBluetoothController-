@@ -1,4 +1,4 @@
-import 'package:arduinobtcontroller/views/bluetooth_aktifmi.dart';
+import 'bluetooth_aktifmi.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

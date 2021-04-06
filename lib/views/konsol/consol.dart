@@ -19,16 +19,16 @@ import '/widgets/mesaj_gonder_button.dart';
 import '/widgets/mesaj_textfield.dart';
 import '/widgets/right_joystick.dart';
 
-class IslemSayfasi extends StatefulWidget {
+class Consol extends StatefulWidget {
   final BluetoothDevice server;
 
-  const IslemSayfasi({this.server});
+  const Consol({this.server});
 
   @override
-  _ChatPage createState() => _ChatPage();
+  _ConsolState createState() => _ConsolState();
 }
 
-class _ChatPage extends State<IslemSayfasi> {
+class _ConsolState extends State<Consol> {
   static final clientID = 0;
   BluetoothConnection connection;
 
@@ -204,8 +204,7 @@ class _ChatPage extends State<IslemSayfasi> {
           Expanded(
             child: ButtonJoystick(
               padButtonPressedCallback:
-                  JoystickPadCallBack(mesajGonder: _mesajGonder)
-                      .padButtonPressedCallback,
+                  JoystickPadCallBack().padButtonPressedCallback,
             ),
           ),
         ],

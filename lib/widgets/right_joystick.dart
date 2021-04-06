@@ -1,7 +1,8 @@
-import 'package:arduinobtcontroller/constants/right_joystick_icon.dart';
 import 'package:control_pad/models/pad_button_item.dart';
 import 'package:control_pad/views/pad_button_view.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/right_joystick_icon.dart';
 
 class ButtonJoystick extends StatelessWidget {
   final Function padButtonPressedCallback;

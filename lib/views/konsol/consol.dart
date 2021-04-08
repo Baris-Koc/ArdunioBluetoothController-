@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:arduinobtcontroller/controllers/joystick_controller.dart/joystick_callback.dart';
 import 'package:arduinobtcontroller/controllers/joystick_controller.dart/left_joystick_write_data.dart';
 import 'package:arduinobtcontroller/controllers/joystick_controller.dart/right_joystick_write_data.dart';
 import 'package:arduinobtcontroller/models/message.dart';
-import 'package:arduinobtcontroller/widgets/textField_gonder_button.dart';
+import 'package:arduinobtcontroller/views/konsol/consol_appBar.dart';
 
 import 'package:control_pad/control_pad.dart';
 import 'package:control_pad/models/gestures.dart';
@@ -14,15 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-import '/widgets/left_joystick.dart';
-import '/widgets/mesaj_gonder_button.dart';
-import '/widgets/mesaj_textfield.dart';
-import '/widgets/right_joystick.dart';
+
+import 'consol_body.dart';
 
 class Consol extends StatefulWidget {
   final BluetoothDevice server;
 
   const Consol({this.server});
+
 
   @override
   _ConsolState createState() => _ConsolState();
@@ -40,6 +38,7 @@ class _ConsolState extends State<Consol> {
   final ScrollController listScrollController = ScrollController();
 
   bool isConnecting = true;
+
   bool get isConnected => connection != null && connection.isConnected;
 
   bool isDisconnecting = false;
@@ -115,10 +114,10 @@ class _ConsolState extends State<Consol> {
             width: 222.0,
             decoration: BoxDecoration(
                 color:
-                    _message.whom == clientID ? Colors.blueAccent : Colors.grey,
+                _message.whom == clientID ? Colors.blueAccent : Colors.grey,
                 borderRadius: BorderRadius.circular(7.0)),
             child: Text(
-                (text) {
+                    (text) {
                   return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
                 }(_message.text.trim()),
                 style: TextStyle(color: Colors.white)),
@@ -127,90 +126,35 @@ class _ConsolState extends State<Consol> {
       );
     }).toList();
     // ignore: missing_return
-    JoystickDirectionCallback onDirectionChanged(
-        double degress, double distance) {
+    JoystickDirectionCallback onDirectionChanged(double degress,
+        double distance) {
       var data = degress.round();
       WriteDerece.writeData(data: data, mesajGonder: _mesajGonder);
     }
 
     // ignore: missing_return
-    PadButtonPressedCallback padButtonPressedCallback(
-        int buttonIndex, Gestures gesture) {
+    PadButtonPressedCallback padButtonPressedCallback(int buttonIndex,
+        Gestures gesture) {
       print('buttonIndex: $buttonIndex');
       WriteButtonIndex.writeData(data: buttonIndex, mesajGonder: _mesajGonder);
     }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-          title: (isConnecting
-              ? Text('Cihaza Bağlanıyor ' + widget.server.name + '...')
-              : isConnected
-                  ? Text('Consola Bağlandı ' + widget.server.name)
-                  : Text('Bağlantı Kesildi! ' + widget.server.name))),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: LeftJoystick(onDirectionChanged: onDirectionChanged),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  height: MediaQuery.of(context).size.width * 0.1,
-                  width: double.infinity,
-                  child: FittedBox(
-                    child: Row(
-                      children: [
-                        MesajDonderenIcon(
-                          isConnected: isConnected,
-                          mesajGonder: _mesajGonder,
-                          mesaj: '1',
-                        ),
-                        MesajDonderenIcon(
-                            mesajGonder: _mesajGonder,
-                            mesaj: '0',
-                            isConnected: isConnected)
-                      ],
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: ListView(
-                      padding: const EdgeInsets.all(12.0),
-                      controller: listScrollController,
-                      children: list),
-                ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: MesajGonderTextField(
-                          textEditingController: textEditingController,
-                          isConnecting: isConnecting,
-                          isConnected: isConnected),
-                    ),
-                    MesajGonderIcon(
-                      isConnected: isConnected,
-                      textEditingController: textEditingController,
-                      mesajGonder: _mesajGonder,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: ButtonJoystick(
-              padButtonPressedCallback:
-                  JoystickPadCallBack().padButtonPressedCallback,
-            ),
-          ),
-        ],
-      ),
+      appBar: consolAppBar(isConnecting: isConnecting, isConnected: isConnected, widgetServerName: widget.server.name),
+
+      body: ConsolBody(onDirectionChanged: onDirectionChanged,
+          context: context,
+          list: list,
+          isConnected: isConnected,
+          mesajGonder: _mesajGonder,
+          listScrollController: listScrollController,
+          textEditingController: textEditingController,
+          isConnecting: isConnecting),
     );
   }
+
+
 
   void _onDataReceived(Uint8List data) {
     // Allocate buffer for parsed data
@@ -247,7 +191,7 @@ class _ConsolState extends State<Consol> {
             1,
             backspacesCounter > 0
                 ? _messageBuffer.substring(
-                    0, _messageBuffer.length - backspacesCounter)
+                0, _messageBuffer.length - backspacesCounter)
                 : _messageBuffer + dataString.substring(0, index),
           ),
         );
@@ -256,7 +200,7 @@ class _ConsolState extends State<Consol> {
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
-              0, _messageBuffer.length - backspacesCounter)
+          0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString);
     }
   }

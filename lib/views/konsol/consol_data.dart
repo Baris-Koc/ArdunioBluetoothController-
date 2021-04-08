@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
   final clientID = 0;
   BluetoothConnection connection;
 
-  var messages = [];
+   List messages=[];
   String messageBuffer = '';
 
   final TextEditingController textEditingController = TextEditingController();

@@ -5,11 +5,9 @@ import 'package:arduinobtcontroller/models/message.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'consol.dart';
 
  class MesajGonder {
-
      void mesajGonder(String text, ) async {
       text = text.trim();
       data.textEditingController.clear();

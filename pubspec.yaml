@@ -31,6 +31,7 @@ dependencies:
   flutter_bluetooth_serial: ^0.2.2
   control_pad: ^1.1.1+1
   pedantic: ^1.11.0
+  provider: ^5.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -4,15 +4,20 @@ import 'package:arduinobtcontroller/widgets/mesaj_gonder_button.dart';
 import 'package:arduinobtcontroller/widgets/mesaj_textfield.dart';
 import 'package:arduinobtcontroller/widgets/right_joystick.dart';
 import 'package:arduinobtcontroller/widgets/textField_gonder_button.dart';
-
-
+import 'package:control_pad/control_pad.dart';
 
 import 'package:flutter/material.dart';
 
-
-
-
-Row ConsolBody({@required var onDirectionChanged,@required  BuildContext context,@required List<Row> list,@required  bool isConnected,@required  Function mesajGonder,@required  ScrollController listScrollController ,@required  TextEditingController textEditingController,@required  bool isConnecting}) {
+Row ConsolBody(
+    {@required var onDirectionChanged,
+    @required var padButtonPressedCallback,
+    @required BuildContext context,
+    @required List<Row> list,
+    @required bool isConnected,
+    @required Function mesajGonder,
+    @required ScrollController listScrollController,
+    @required TextEditingController textEditingController,
+    @required bool isConnecting}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
@@ -68,8 +73,7 @@ Row ConsolBody({@required var onDirectionChanged,@required  BuildContext context
       ),
       Expanded(
         child: ButtonJoystick(
-          padButtonPressedCallback:
-          JoystickPadCallBack().padButtonPressedCallback,
+          padButtonPressedCallback: padButtonPressedCallback,
         ),
       ),
     ],

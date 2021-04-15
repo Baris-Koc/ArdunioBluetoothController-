@@ -5,3 +5,7 @@ const Icon btIcon = Icon(
   size: 200,
   color: Colors.blue,
 );
+
+const Icon btIcon2 = Icon(
+  Icons.bluetooth,
+);

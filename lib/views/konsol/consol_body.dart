@@ -1,19 +1,17 @@
-import 'package:arduinobtcontroller/controllers/joystick_controller.dart/joystick_callback.dart';
-import 'package:arduinobtcontroller/widgets/left_joystick.dart';
-import 'package:arduinobtcontroller/widgets/mesaj_gonder_button.dart';
-import 'package:arduinobtcontroller/widgets/mesaj_textfield.dart';
-import 'package:arduinobtcontroller/widgets/right_joystick.dart';
-import 'package:arduinobtcontroller/widgets/textField_gonder_button.dart';
-import 'package:control_pad/control_pad.dart';
-
 import 'package:flutter/material.dart';
+
+import '../../widgets/left_joystick.dart';
+import '../../widgets/mesaj_gonder_button.dart';
+import '../../widgets/mesaj_textfield.dart';
+import '../../widgets/right_joystick.dart';
+import '../../widgets/textField_gonder_button.dart';
 
 Row ConsolBody(
     {@required var onDirectionChanged,
     @required var padButtonPressedCallback,
     @required BuildContext context,
-    @required List<Row> list,
     @required bool isConnected,
+    @required List list,
     @required Function mesajGonder,
     @required ScrollController listScrollController,
     @required TextEditingController textEditingController,
